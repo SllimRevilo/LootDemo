@@ -164,23 +164,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.586824
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.4924039
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.41317603
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.4924039
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 280
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -188,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 280
+      value: 270
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
@@ -783,10 +783,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938fc73e21b2e8a42826250acd59a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chest: {fileID: 1914633624}
-  maxRotation: {x: 260, y: 0, z: 300, w: 1}
-  minRotation: {x: 260, y: 0, z: 220, w: 1}
-  turnSpeed: 1e-10
+  maxAngle: {x: 280, y: 0, z: 290}
+  minAngle: {x: 280, y: 0, z: 270}
+  turnSpeed: 50
+  rotLeft: 1
+  rotate: 0
 --- !u!65 &1914633626
 BoxCollider:
   m_ObjectHideFlags: 0

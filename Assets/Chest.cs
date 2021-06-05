@@ -4,43 +4,62 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    public GameObject chest;
-    public Quaternion maxRotation = new Quaternion(260f,0f,300f,1f);
-    public Quaternion minRotation = new Quaternion(260f,0f,220f,1f);
-    public float turnSpeed = .0000000001f;
-    private static Quaternion startRot = new Quaternion(260f,0f,260f,1f);
-    private bool rotLeft = true;
-    private bool rotate = false;
+    public Vector3 maxAngle = new Vector3(280f,0f,300f);
+    public Vector3 minAngle = new Vector3(280f,0f,260f);
+    public float turnSpeed = 50f;
+    public bool rotLeft = true;
+    public bool rotate = false;
 
     public void Update()
     {
-        while(rotate){
-
-            if(rotLeft)
+        Debug.Log(this.transform.rotation.eulerAngles.y + " >= " + (maxAngle.z -.5f));
+        if(rotate)
+        {
+            if(!rotLeft)
             {
-                Debug.Log("original: " + chest.transform.rotation.eulerAngles);
-                Vector3 rot = Quaternion.Lerp(chest.transform.rotation,minRotation,Time.deltaTime * this.turnSpeed).eulerAngles;
-                Debug.Log("to: " + rot);
-                this.chest.transform.rotation = Quaternion.Euler(startRot.x ,startRot.y,rot.z);
-                Debug.Log(rot.z);
-
-                if(this.chest.transform.rotation.eulerAngles.z <= minRotation.eulerAngles.z+.5f)
+                this.transform.Rotate(new Vector3(0,1,0) * Time.deltaTime * turnSpeed,Space.World);
+                Debug.Log(this.transform.rotation.eulerAngles.y + " >= " + (maxAngle.z -.5f));
+                if(this.transform.rotation.eulerAngles.y >= maxAngle.z)
                 {
-                    rotLeft = false;
+                    Debug.Log("left");
+                    rotLeft = true;
                 }
             }
             else
             {
-                Debug.Log(chest.transform.rotation.eulerAngles);
-                Vector3 rot = Quaternion.Lerp(chest.transform.rotation,maxRotation,Time.deltaTime * this.turnSpeed).eulerAngles;
-                this.chest.transform.rotation = Quaternion.Euler(startRot.x ,startRot.y,rot.z);
-
-                if(this.chest.transform.rotation.eulerAngles.z >= maxRotation.eulerAngles.z+.5f)
+                this.transform.Rotate(new Vector3(0,-1,0) * Time.deltaTime * turnSpeed,Space.World);
+                Debug.Log(this.transform.rotation.eulerAngles.z + " <= " + (minAngle.z -.5f));
+                if(this.transform.rotation.eulerAngles.y <= minAngle.z)
                 {
-                    rotLeft = true;
+                    Debug.Log("right");
+                    rotLeft = false;
                 }
             }
         }
+        // if(rotate)
+        // {
+        //     if(!rotLeft)
+        //     {
+        //         Quaternion min = Quaternion.Euler(minAngle);
+                
+        //         this.transform.rotation = Quaternion.Lerp(this.transform.rotation,min,Time.deltaTime * this.turnSpeed);
+        //         if(this.transform.rotation.eulerAngles.z <= minAngle.z + .5f)
+        //         {
+        //             rotLeft = true;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         Quaternion max = Quaternion.Euler(maxAngle);
+        //         this.transform.rotation = Quaternion.Lerp(this.transform.rotation,max,Time.deltaTime * this.turnSpeed);
+        //         Debug.Log(this.transform.rotation.z + " >= " + (maxAngle.z -.5f));
+        //         if(this.transform.rotation.eulerAngles.z >= maxAngle.z - .5f)
+        //         {
+        //             rotLeft = false;
+        //         }
+        //     }
+            
+        // }
     }
     public void OnMouseOver()
     {
