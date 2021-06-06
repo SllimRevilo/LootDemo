@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    public Vector3 maxAngle = new Vector3(280f,0f,300f);
-    public Vector3 minAngle = new Vector3(280f,0f,260f);
-    public float turnSpeed = 50f;
+    public Vector3 maxAngle = new Vector3(280f,0f,290f);
+    public Vector3 minAngle = new Vector3(280f,0f,270f);
+    public float turnSpeed = 5f;
     public bool rotLeft = true;
     public bool rotate = false;
 
     public void Update()
     {
+        
+    }
+    public void OnMouseOver()
+    {
         Debug.Log(this.transform.rotation.eulerAngles.y + " >= " + (maxAngle.z -.5f));
-        if(rotate)
+        //if(rotate)
         {
             if(!rotLeft)
             {
@@ -36,42 +40,12 @@ public class Chest : MonoBehaviour
                 }
             }
         }
-        // if(rotate)
-        // {
-        //     if(!rotLeft)
-        //     {
-        //         Quaternion min = Quaternion.Euler(minAngle);
-                
-        //         this.transform.rotation = Quaternion.Lerp(this.transform.rotation,min,Time.deltaTime * this.turnSpeed);
-        //         if(this.transform.rotation.eulerAngles.z <= minAngle.z + .5f)
-        //         {
-        //             rotLeft = true;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Quaternion max = Quaternion.Euler(maxAngle);
-        //         this.transform.rotation = Quaternion.Lerp(this.transform.rotation,max,Time.deltaTime * this.turnSpeed);
-        //         Debug.Log(this.transform.rotation.z + " >= " + (maxAngle.z -.5f));
-        //         if(this.transform.rotation.eulerAngles.z >= maxAngle.z - .5f)
-        //         {
-        //             rotLeft = false;
-        //         }
-        //     }
-            
-        // }
-    }
-    public void OnMouseOver()
-    {
-
         
     }
 
     public void OnMouseDown()
     {
-        this.rotate = !this.rotate;
-        this.Rotate();
-        Debug.Log("i did this");
+       
     }
     public void Rotate()
     {
