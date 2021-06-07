@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Winnings : MonoBehaviour
 {
-    public GameObject chest1;
-    public GameObject chest2;
-    public GameObject chest3;
-    public GameObject chest4;
-    public GameObject chest5;
-    public GameObject chest6;
-    public GameObject chest7;
-    public GameObject chest8;
-    public GameObject chest9;
+    public GameManager gameManager;   
+    public bool foundPooper = true;
     
     public int[] commonMulitplers = {0};
     public int[] rareMultipliers = {1,2,3,4,5,6,7,8,9,10};
@@ -28,6 +21,7 @@ public class Winnings : MonoBehaviour
 
     public List<float> chestValues;
     public ButtonFunctionality buttonFunctionality;
+    private float currentWin = 0;
 
     /// <summary>
     /// init chest values
@@ -86,9 +80,8 @@ public class Winnings : MonoBehaviour
 
         int numChests = 0;
         float leftOver = this.GetRollMultiplier() * moneyValues.currentDemonination;
-        float total = leftOver;
+        this.currentWin = leftOver;
 
-        Debug.Log("init: " +leftOver);
 
         // used to get number of chests
         // ideally this would not be hardcoded but the numbers are highly experimental
@@ -116,10 +109,9 @@ public class Winnings : MonoBehaviour
         }
         else
         {
-            numChests = Random.Range(6,10);
+            numChests = Random.Range(6,9);
         }
 
-        Debug.Log("numchest " + numChests);
         while(this.chestValues.Count < numChests-1)
         {
             //gets random amount between .05 and max but takes away the 2 decimals
@@ -140,24 +132,23 @@ public class Winnings : MonoBehaviour
             currAmt += chest;
         }
         // fixes issues with last value being slightly off
-        float lastVal = total-currAmt;
+        float lastVal = this.currentWin-currAmt;
         lastVal= (float)System.Math.Round(lastVal,2);
         this.chestValues.Add(lastVal);
         buttonFunctionality.UpdatePlayButton();
 
-        foreach (float item in chestValues)
-        {
-            Debug.Log("value: " + item);
-        }
 
     }
 
     /// <summary>
-    /// Resets the value of the chests
+    /// Resets the value of the chests and the current win
     /// </summary>
     public void ResetChestValues()
     {
-        chestValues.Clear();
+        this.chestValues.Clear();
+        this.currentWin = 0;
+        this.foundPooper = false;
+        this.gameManager.ResetChests();
     }
 
     /// <summary>
@@ -167,6 +158,17 @@ public class Winnings : MonoBehaviour
     {
         if(chestValues.Count <= 0)
         {
+            // if we have done this before
+            if(foundPooper)
+            {
+                return;
+            }
+            Debug.Log("change pooper to true");
+            moneyValues.AddBalance(this.currentWin);
+            this.foundPooper = true;
+            this.buttonFunctionality.UpdateDecrementButton();
+            this.buttonFunctionality.UpdateIncrementButton();
+            this.buttonFunctionality.UpdatePlayButton();
             return;
         }
         int randIndex = Random.Range(0,chestValues.Count);
@@ -174,6 +176,5 @@ public class Winnings : MonoBehaviour
         chestValues.RemoveAt(randIndex);
 
         moneyValues.AddWinnings(winnings);
-        moneyValues.AddBalance(winnings);
     }
 }

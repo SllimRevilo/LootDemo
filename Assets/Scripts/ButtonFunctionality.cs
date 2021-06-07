@@ -31,6 +31,7 @@ public class ButtonFunctionality : MonoBehaviour
         textReadOuts.UpdateDenominationText();
         UpdateDecrementButton();
         UpdateIncrementButton();
+        UpdatePlayButton();
     }
     public void Decrement()
     {
@@ -38,17 +39,21 @@ public class ButtonFunctionality : MonoBehaviour
         textReadOuts.UpdateDenominationText();
         UpdateDecrementButton();
         UpdateIncrementButton();
+        UpdatePlayButton();
     }
 
     public void Play()
     {
         winnings.DivideAmongChests();
         UpdatePlayButton();
+        UpdateIncrementButton();
+        UpdateDecrementButton();
     }
 
     public void UpdateIncrementButton()
     {
-        if(moneyValues.currentDemoninationIndex >= moneyValues.denominations.Length-1)
+        Debug.Log("pooper is " +winnings.foundPooper);
+        if(moneyValues.currentDemoninationIndex >= moneyValues.denominations.Length-1 || !winnings.foundPooper)
         {
             incrementButton.interactable = false;
         }
@@ -56,11 +61,12 @@ public class ButtonFunctionality : MonoBehaviour
         {
             incrementButton.interactable = true;
         }
+
     }
 
     public void UpdateDecrementButton()
     {
-        if(moneyValues.currentDemoninationIndex <= 0)
+        if(moneyValues.currentDemoninationIndex <= 0 || !winnings.foundPooper)
         {
             decrementButton.interactable = false;
         }
@@ -68,12 +74,13 @@ public class ButtonFunctionality : MonoBehaviour
         {
             decrementButton.interactable = true;
         }
+
     }
 
     public void UpdatePlayButton()
     {
         
-        if(moneyValues.balance < moneyValues.currentDemonination)
+        if(moneyValues.balance < moneyValues.currentDemonination || !winnings.foundPooper)
         {
             Debug.Log(moneyValues.balance + " balance and make false");
             playButton.interactable = false;
@@ -83,10 +90,6 @@ public class ButtonFunctionality : MonoBehaviour
             Debug.Log("good");
             playButton.interactable = true;
         }
-        if(winnings.chestValues.Count >0)
-        {
-            Debug.Log(winnings.chestValues.Count + " count and make false");
-            playButton.interactable = false;
-        }
+
     }
 }

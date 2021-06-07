@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8399446700694034358}
   - component: {fileID: 8399446700694034357}
   m_Layer: 0
-  m_Name: chest_close
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,3 +113,6 @@ MonoBehaviour:
   turnSpeed: 5
   rotLeft: 1
   rotate: 0
+  winnings: {fileID: 0}
+  buttonFunctionality: {fileID: 0}
+  gameManager: {fileID: 0}

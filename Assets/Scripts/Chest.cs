@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Chest : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Chest : MonoBehaviour
     public bool rotate = false;
     public Winnings winnings;
     public ButtonFunctionality buttonFunctionality;
+    public GameManager gameManager;
 
     public void Update()
     {
@@ -45,11 +47,31 @@ public class Chest : MonoBehaviour
     }
 
     /// <summary>
-    /// Opens a chest and gets the winnigns from it if there are any 
+    /// Opens a chest and gets the winnigns from it if there are any
+    /// disables if pooper is found
     /// </summary>
     public void OnMouseDown()
     {
-       winnings.GetWinnings();
-       buttonFunctionality.UpdatePlayButton();
+        if(winnings.foundPooper)
+        {
+            Debug.Log("I did this");
+            return;
+        }
+        winnings.GetWinnings();
+        buttonFunctionality.UpdatePlayButton();
+        buttonFunctionality.UpdateDecrementButton();
+        buttonFunctionality.UpdateIncrementButton();
+        if(winnings.chestValues.Count <= 0)
+        {
+            winnings.GetWinnings();
+            gameManager.MovePooper(this.transform.position);
+        }
+        else
+        {
+            gameManager.MoveOpenChest(this.transform.position);
+        }
+
+        this.gameObject.SetActive(false);
+        
     }
 }
