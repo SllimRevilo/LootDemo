@@ -11,20 +11,24 @@ public class ButtonFunctionality : MonoBehaviour
     public MoneyValues moneyValues;
     public TextReadOuts textReadOuts;
     public Winnings winnings;
-    // Start is called before the first frame update
+    public Color disableColor = new Color(195,86,54,255);
+    [HideInInspector]
+    public Color normalColor;
+
+    /// <summary>
+    /// sets the noaml color and updates buttons
+    /// </summary>
     void Start()
     {
+        this.normalColor = playButton.image.color;
         UpdateDecrementButton();
         UpdateIncrementButton();
         UpdatePlayButton();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// increments the denomination
+    /// </summary>
     public void Increment()
     {
         moneyValues.Increment();
@@ -33,6 +37,9 @@ public class ButtonFunctionality : MonoBehaviour
         UpdateIncrementButton();
         UpdatePlayButton();
     }
+    /// <summary>
+    /// decrements the denomination
+    /// </summary>
     public void Decrement()
     {
         moneyValues.Decrement();
@@ -41,7 +48,9 @@ public class ButtonFunctionality : MonoBehaviour
         UpdateIncrementButton();
         UpdatePlayButton();
     }
-
+    /// <summary>
+    /// makes the game start
+    /// </summary>
     public void Play()
     {
         winnings.DivideAmongChests();
@@ -49,34 +58,46 @@ public class ButtonFunctionality : MonoBehaviour
         UpdateIncrementButton();
         UpdateDecrementButton();
     }
-
+    /// <summary>
+    /// updates the increment button's usability
+    /// </summary>
     public void UpdateIncrementButton()
     {
         //Debug.Log("pooper is " +winnings.foundPooper);
         if(moneyValues.currentDemoninationIndex >= moneyValues.denominations.Length-1 || !winnings.foundPooper)
         {
             incrementButton.interactable = false;
+            incrementButton.image.color = disableColor;
         }
         else
         {
             incrementButton.interactable = true;
+            incrementButton.image.color = normalColor;
+
         }
 
     }
-
+    /// <summary>
+    /// updates the decrement button's usability
+    /// </summary>
     public void UpdateDecrementButton()
     {
         if(moneyValues.currentDemoninationIndex <= 0 || !winnings.foundPooper)
         {
             decrementButton.interactable = false;
+            decrementButton.image.color = disableColor;
         }
         else
         {
             decrementButton.interactable = true;
+            decrementButton.image.color = normalColor;
+
         }
 
     }
-
+    /// <summary>
+    /// updates the play button's usability
+    /// </summary>
     public void UpdatePlayButton()
     {
         
@@ -84,12 +105,15 @@ public class ButtonFunctionality : MonoBehaviour
         {
             //Debug.Log(moneyValues.balance + " balance and make false");
             playButton.interactable = false;
+            playButton.image.color = disableColor;
         }
         else
         {
             //Debug.Log("good");
             playButton.interactable = true;
+            playButton.image.color = normalColor;
         }
 
     }
+
 }

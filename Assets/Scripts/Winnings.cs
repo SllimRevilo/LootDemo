@@ -163,7 +163,10 @@ public class Winnings : MonoBehaviour
     /// </summary>
     public void GetWinnings()
     {
+        // makes it so no premature window close
         StopAllCoroutines();
+
+        // done when no more winnings
         if(chestValues.Count <= 0)
         {
             StartCoroutine(textReadOuts.DisplayAmount(-1f));
@@ -180,10 +183,14 @@ public class Winnings : MonoBehaviour
             noCoinSound.Play();
             return;
         }
+
+        // display random winning
         int randIndex = Random.Range(0,chestValues.Count);
         float winnings = chestValues[randIndex];
         chestValues.RemoveAt(randIndex);
 
+        // determine sound to play
+        // ideally should not be hardcoded
         if(winnings < 10)
         {
             coinSoundCommon.Play();
@@ -201,7 +208,6 @@ public class Winnings : MonoBehaviour
             coinSoundLegendary.Play();
         }
 
-        
         StartCoroutine(textReadOuts.DisplayAmount(winnings));
         moneyValues.AddWinnings(winnings);
     }

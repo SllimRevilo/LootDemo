@@ -13,16 +13,12 @@ public class MoneyValues : MonoBehaviour
     [HideInInspector]
     public int currentDemoninationIndex = 0;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// inits curretn denomination
+    /// </summary>
     void Start()
     {
         this.currentDemonination = denominations[currentDemoninationIndex];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>

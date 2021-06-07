@@ -28,29 +28,35 @@ public class GameManager : MonoBehaviour
     public GameObject openChest9;
     public GameObject pooper;
     private Vector3 offScreenValue = new Vector3(-20f,-20f,-13f);
-    // Start is called before the first frame update
+    /// <summary>
+    /// puts chests in right spot and inits the array
+    /// </summary>
     void Start()
     {
         openChests = new GameObject[]{openChest1,openChest2,openChest3,openChest4,openChest5,openChest6,openChest7,openChest8,openChest9};
         this.ResetChests();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// moves a chest to the correct position
+    /// </summary>
+    /// <param name="pos">the position to move to </param>
     public void MoveOpenChest(Vector3 pos)
     {
         openChests[openChestIndex].transform.position = new Vector3(pos.x,pos.y,openChestZValue);
         openChestIndex++;
     }
+    /// <summary>
+    /// moves the pooper to the correct position
+    /// </summary>
+    /// <param name="pos">the position to move to</param>
     public void MovePooper(Vector3 pos)
     {
         pooper.transform.position = new Vector3(pos.x,pos.y,openChestZValue);
     }
+    /// <summary>
+    /// resets the chests
+    /// </summary>
     public void ResetChests()
     {
         openChestIndex=0;
