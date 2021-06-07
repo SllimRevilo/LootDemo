@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
+
 
 public class Chest : MonoBehaviour
 {
@@ -57,20 +57,22 @@ public class Chest : MonoBehaviour
             Debug.Log("I did this");
             return;
         }
-        winnings.GetWinnings();
-        buttonFunctionality.UpdatePlayButton();
-        buttonFunctionality.UpdateDecrementButton();
-        buttonFunctionality.UpdateIncrementButton();
+        
+        
         if(winnings.chestValues.Count <= 0)
         {
+            //winnings.GetWinnings();
             winnings.GetWinnings();
             gameManager.MovePooper(this.transform.position);
         }
         else
         {
+            winnings.GetWinnings();
             gameManager.MoveOpenChest(this.transform.position);
         }
-
+        buttonFunctionality.UpdatePlayButton();
+        buttonFunctionality.UpdateDecrementButton();
+        buttonFunctionality.UpdateIncrementButton();
         this.gameObject.SetActive(false);
         
     }

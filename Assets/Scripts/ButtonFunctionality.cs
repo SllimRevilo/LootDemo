@@ -52,7 +52,7 @@ public class ButtonFunctionality : MonoBehaviour
 
     public void UpdateIncrementButton()
     {
-        Debug.Log("pooper is " +winnings.foundPooper);
+        //Debug.Log("pooper is " +winnings.foundPooper);
         if(moneyValues.currentDemoninationIndex >= moneyValues.denominations.Length-1 || !winnings.foundPooper)
         {
             incrementButton.interactable = false;
@@ -82,12 +82,12 @@ public class ButtonFunctionality : MonoBehaviour
         
         if(moneyValues.balance < moneyValues.currentDemonination || !winnings.foundPooper)
         {
-            Debug.Log(moneyValues.balance + " balance and make false");
+            //Debug.Log(moneyValues.balance + " balance and make false");
             playButton.interactable = false;
         }
         else
         {
-            Debug.Log("good");
+            //Debug.Log("good");
             playButton.interactable = true;
         }
 

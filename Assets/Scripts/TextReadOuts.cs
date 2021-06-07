@@ -8,6 +8,8 @@ public class TextReadOuts : MonoBehaviour
     public Text balanceText;
     public Text lastWinText;
     public Text denominationText;
+    public GameObject displayAmountPanel;
+    public Text displayAmountText;
     public MoneyValues values;
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,21 @@ public class TextReadOuts : MonoBehaviour
         denominationText.text = "$" + values.currentDemonination.ToString("0.00");
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator DisplayAmount(float amount)
     {
-        
+        Debug.Log("display");
+        if(amount>0)
+        {
+            displayAmountText.text = "The chest contained $" + amount.ToString("0.00");
+        }
+        else
+        {
+            displayAmountText.text = "Better luck next time";
+        }
+        displayAmountPanel.SetActive(true);
+        yield return new WaitForSeconds(1);
+        displayAmountPanel.SetActive(false);
     }
-
     public void UpdateDenominationText()
     {
         denominationText.text = "$" + values.currentDemonination.ToString("0.00");

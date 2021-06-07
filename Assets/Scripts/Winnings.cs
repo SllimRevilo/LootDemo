@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Winnings : MonoBehaviour
 {
-    public GameManager gameManager;   
+    public AudioSource noCoinSound;
+    public AudioSource coinSoundCommon;
+    public AudioSource coinSoundRare;
+    public AudioSource coinSoundEpic;
+    public AudioSource coinSoundLegendary;
+    public GameManager gameManager;
+    public TextReadOuts textReadOuts;
     public bool foundPooper = true;
     
     public int[] commonMulitplers = {0};
@@ -156,25 +163,46 @@ public class Winnings : MonoBehaviour
     /// </summary>
     public void GetWinnings()
     {
+        StopAllCoroutines();
         if(chestValues.Count <= 0)
         {
+            StartCoroutine(textReadOuts.DisplayAmount(-1f));
             // if we have done this before
             if(foundPooper)
             {
                 return;
             }
-            Debug.Log("change pooper to true");
             moneyValues.AddBalance(this.currentWin);
             this.foundPooper = true;
             this.buttonFunctionality.UpdateDecrementButton();
             this.buttonFunctionality.UpdateIncrementButton();
             this.buttonFunctionality.UpdatePlayButton();
+            noCoinSound.Play();
             return;
         }
         int randIndex = Random.Range(0,chestValues.Count);
         float winnings = chestValues[randIndex];
         chestValues.RemoveAt(randIndex);
 
+        if(winnings < 10)
+        {
+            coinSoundCommon.Play();
+        }
+        else if(winnings < 50)
+        {
+            coinSoundRare.Play();
+        }
+        else if(winnings < 100)
+        {
+            coinSoundEpic.Play();
+        }
+        else
+        {
+            coinSoundLegendary.Play();
+        }
+
+        
+        StartCoroutine(textReadOuts.DisplayAmount(winnings));
         moneyValues.AddWinnings(winnings);
     }
 }
